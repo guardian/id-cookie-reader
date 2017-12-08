@@ -47,6 +47,10 @@ const action = async () => {
     else if (typeof decodedCookieAsString !== 'undefined') {
       document.querySelector('section').innerHTML = decodedCookieAsString
     }
+    else if (typeof cookie !== 'undefined' && typeof cookie.value !== 'undefined') {
+      document.querySelector('section').classList.add('error')
+      document.querySelector('section').innerHTML = cookie.value
+    }
     else {
       document.querySelector('section').classList.add('error')
       document.querySelector('section').innerHTML = 'is GU_U set?';
