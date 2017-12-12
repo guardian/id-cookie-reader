@@ -76,7 +76,7 @@ const action = async () => {
       return render(decodedCookieAsJSON)
     }
     else if (typeof decodedCookieAsString !== 'undefined') {
-      return render(decodedCookieAsString)
+      return render([decodedCookieAsString,cookie.value])
     }
     else if (cookie && cookie.value) {
       document.querySelector('section').classList.add('error')
