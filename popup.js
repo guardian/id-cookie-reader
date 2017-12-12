@@ -1,3 +1,14 @@
+const copyTextToClipboard = (text) => {
+  var copyFrom = document.createElement("textarea");
+  copyFrom.textContent = text;
+  var body = document.getElementsByTagName('body')[0];
+  body.appendChild(copyFrom);
+  copyFrom.select();
+  document.execCommand('copy');
+  body.removeChild(copyFrom);
+}
+
+
 const getCurrentTabUrl = async () => {
 
   const queryInfo = {
@@ -29,6 +40,26 @@ const getCookieAsJSON = (cookie) => {
   }
 }
 
+const createRow = (content) => {
+  const $row = document.createElement('x-row');
+  $row.append(content);
+  $row.addEventListener('click',()=>{
+    copyTextToClipboard(content)
+  })
+  return $row;
+}
+
+const render = async (items) => {
+  if(!(items instanceof Array)) items = [items];
+  const $section = document.querySelector('section');
+
+  $section.innerHtml = '';
+
+  items.forEach(item => {
+    $section.append(createRow(item))
+  });
+}
+
 const action = async () => {
 
   const url = await getCurrentTabUrl();
@@ -42,18 +73,18 @@ const action = async () => {
     const decodedCookieAsJSON = getCookieAsJSON(decodedCookieAsString);
 
     if(typeof decodedCookieAsJSON !== 'undefined') {
-      document.querySelector('section').innerHTML = decodedCookieAsJSON.join('<hr/>')
+      return render(decodedCookieAsJSON)
     }
     else if (typeof decodedCookieAsString !== 'undefined') {
-      document.querySelector('section').innerHTML = decodedCookieAsString
+      return render(decodedCookieAsString)
     }
     else if (cookie && cookie.value) {
       document.querySelector('section').classList.add('error')
-      document.querySelector('section').innerHTML = cookie.value;
+      return render(cookie.value);
     }
     else {
       document.querySelector('section').classList.add('error')
-      document.querySelector('section').innerHTML = 'is GU_U set?';
+      return render('is GU_U set?');
     }
   });
 
