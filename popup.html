@@ -1,21 +1,24 @@
-<!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
+<meta charset="utf-8">
   <head>
     <title>Id cookie checker</title>
     <style type="text/css">
+      :root {
+        --color-hover: #6600B0;
+        --color-border: #dedede;
+      }
       * {
         margin: 0;
         padding: 0;
+      }
+      [aria-hidden="true"] {
+          display: none;
       }
       body {
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
         white-space: nowrap;
         font-size: .8em;
+        width: 16em;
       }
       section.error {
         color: red;
@@ -24,7 +27,7 @@
       x-row {
         display: block;
         padding: .75em 1em;
-        border-bottom: 1px solid #dedede;
+        border-bottom: 1px solid var(--color-border);
         transition: .0125s;
         cursor: pointer;
       }
@@ -47,6 +50,9 @@
   </head>
 
   <body>
-    <section></section>
+    <gu-tabs>
+        <gu-cookie-parser slot="tab" data-tab-name="Mine"></gu-cookie-parser>
+        <gu-any-cookie slot="tab" data-tab-name="Any"></gu-any-cookie>
+    </gu-tabs>
   </body>
 </html>

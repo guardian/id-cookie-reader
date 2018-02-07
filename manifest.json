@@ -3,7 +3,7 @@
 
   "name": "Id cookie reader",
   "description": "Fetch data from the id cookie.",
-  "version": "1.0",
+  "version": "2.0",
 
   "icons": {
     "90": "icon.png"
