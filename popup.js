@@ -47,7 +47,7 @@ class GuCookieParser extends HTMLElement {
         super();
     }
 
-    static get observedAttributes() { return ["data-cookie"]; }
+    static get observedAttributes() { return ["data-cookie","data-cookie-name"]; }
 
     createRow(content) {
       const $row = document.createElement('x-row');
@@ -80,7 +80,7 @@ class GuCookieParser extends HTMLElement {
             cookie = (await new Promise(async (yay) => {
                 chrome.cookies.get({
                   url: await getCurrentTabUrl(),
-                  name: 'GU_U',
+                  name: this.dataset.cookieName,
               },yay)}))
               if(!cookie || !cookie.value) {
                   cookie = null;
@@ -89,8 +89,6 @@ class GuCookieParser extends HTMLElement {
                   cookie = cookie.value;
               }
         }
-
-        console.log(cookie);
 
         const decodedCookieAsString = getCookieAsString(cookie);
         const decodedCookieAsJSON = getCookieAsJSON(decodedCookieAsString);
