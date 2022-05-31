@@ -1,3 +1,5 @@
+_As of 2022, the Guardian Identity API & the GU_U cookie are soon to be replaced with Okta_
+
 # id-cookie-reader
 Chrome extension to read the values from GU_U
 
